@@ -13,3 +13,7 @@ words = input.flatMap(normalizeWords)
 wordCount = words.map(lambda x:(x,1)).reduceByKey(lambda x, y : x+y)
 wordCountSorted= wordCount.map(lambda x:(x[1],x[0])).sortByKey()
 results = wordCountSorted.collect()
+
+for results in results:
+    count = str(result[0])
+    word = result[1].encode('ascii', 'ignore')
