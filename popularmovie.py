@@ -7,3 +7,9 @@ lines = sc.textFile("ml-100k/u.data")
 movies = lines.map(lambda x:(int(x.split()[1]),1))
 moviesCount = movies.reduceByKey(lambda x,y :x+y)
 flipped = moviesCount.map(lambda xy: (xy[1],xy[0]))
+sortedMovies = flipped.sortByKey()
+
+results = sortedMovies.collect()
+
+for result in results:
+    print(result)
