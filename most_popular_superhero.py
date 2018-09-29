@@ -23,3 +23,6 @@ flipped = totalFriendsbyCharacter.map(lambda xy : (xy[1], xy[0]))
 mostPopular = flipped.max()
 
 mostPopularName = namesRdd.lookup(mostPopular[1])[0]
+
+
+print(str(mostPopularName) + " is the most popular superhero. with " + \str(mostPopular[0]) + "co-appearances" )
