@@ -22,6 +22,7 @@ moviesCount = movies.reduceByKey(lambda x,y :x+y)
 flipped = moviesCount.map(lambda xy: (xy[1],xy[0]))
 sortedMovies = flipped.sortByKey()
 
+sortedMoviesWithNames = sortedMovies.map(lambda countMovie : (nameDict.value[countMovie[1]], countMovie[0]))
 reults = sortedMoviesWithNames.collect()
 
 for result in results:
