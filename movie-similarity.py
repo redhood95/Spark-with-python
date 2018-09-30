@@ -75,3 +75,14 @@ if (len(sys.argv) > 1):
     filteredResults = moviePairSimilarities.filter(lambda pairSim: \
         (pairSim[0][0] == movieID or pairSim[0][1] == movieID) \
         and pairSim[1][0] > scoreThreshold and pairSim[1][1] > coOccurenceThreshold)
+
+
+    results = filteredResults.map(lambda pairSim: (pairSim[1], pairSim[0])).sortByKey(ascending = False).take(10)
+
+    print("Top 10 similar movies for " + nameDict[movieID])
+    for result in results:
+        (sim, pair) = result
+        similarMovieID = pair[0]
+        if (similarMovieID == movieID):
+            similarMovieID = pair[1]
+        print(nameDict[similarMovieID] + "\tscore: " + str(sim[0]) + "\tstrength: " + str(sim[1]))
