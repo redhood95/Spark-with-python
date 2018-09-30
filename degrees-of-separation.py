@@ -75,8 +75,18 @@ def bfsReduce(data1, data2):
 
         if (distance2 < distance):
             distance = distance2
+        if (color1 == 'WHITE' and (color2 == 'GRAY' or color2 == 'BLACK')):
+            color = color2
 
+        if (color1 == 'GRAY' and color2 == 'BLACK'):
+            color = color2
 
+        if (color2 == 'WHITE' and (color1 == 'GRAY' or color1 == 'BLACK')):
+            color = color1
+
+        if (color2 == 'GRAY' and color1 == 'BLACK'):
+            color = color1
+        return (edges, distance, color)
 iterationRdd = createStartingRdd()
 
 for iteration in range(0, 10):
