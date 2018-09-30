@@ -63,3 +63,15 @@ moviePairs = uniqueJoinedRatings.map(makePairs)
 moviePairRatings = moviePairs.groupByKey()
 
 moviePairSimilarities = moviePairRatings.mapValues(computeCosineSimilarity).cache()
+
+
+if (len(sys.argv) > 1):
+
+    scoreThreshold = 0.97
+    coOccurenceThreshold = 50
+
+    movieID = int(sys.argv[1])
+
+    filteredResults = moviePairSimilarities.filter(lambda pairSim: \
+        (pairSim[0][0] == movieID or pairSim[0][1] == movieID) \
+        and pairSim[1][0] > scoreThreshold and pairSim[1][1] > coOccurenceThreshold)
