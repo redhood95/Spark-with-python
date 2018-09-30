@@ -75,3 +75,18 @@ def bfsReduce(data1, data2):
 
         if (distance2 < distance):
             distance = distance2
+
+
+iterationRdd = createStartingRdd()
+
+for iteration in range(0, 10):
+    print("Running BFS iteration# " + str(iteration+1))
+
+    mapped = iterationRdd.flatMap(bfsMap)
+    print("Processing " + str(mapped.count()) + " values.")
+
+    if (hitCounter.value > 0):
+        print("Hit the target character! From " + str(hitCounter.value) \
+            + " different direction(s).")
+        break
+    iterationRdd = mapped.reduceByKey(bfsReduce)
