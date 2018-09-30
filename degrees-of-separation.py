@@ -47,3 +47,8 @@ def bfsMap(node):
 
             newEntry = (newCharacterID, ([], newDistance, newColor))
             results.append(newEntry)
+        color = 'BLACK'
+
+    #Emit the input node so we don't lose it.
+    results.append( (characterID, (connections, distance, color)) )
+    return results
