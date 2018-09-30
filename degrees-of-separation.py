@@ -23,3 +23,7 @@ def convertToBFS(line):
         distance = 0
 
     return (heroID, (connetions, distance, color))
+
+def createStartingRdd():
+    inputFile = sc.textFile("data/marvel-graph.txt")
+    return inputFile.map(convertToBFS)
