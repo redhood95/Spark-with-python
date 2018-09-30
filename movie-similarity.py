@@ -50,3 +50,16 @@ print("\nLoading movie names...")
 nameDict = loadMovieNames()
 
 data = sc.textFile("data/ml-100k/u.data")
+
+
+ratings = data.map(lambda l: l.split()).map(lambda l: (int(l[0]), (int(l[1]), float(l[2]))))
+
+joinedRatings = ratings.join(ratings)
+
+uniqueJoinedRatings = joinedRatings.filter(filterDuplicates)
+
+moviePairs = uniqueJoinedRatings.map(makePairs)
+
+moviePairRatings = moviePairs.groupByKey()
+
+moviePairSimilarities = moviePairRatings.mapValues(computeCosineSimilarity).cache()
