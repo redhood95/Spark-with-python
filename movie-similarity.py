@@ -10,3 +10,9 @@ def loadMovieNames():
             fields = line.split('|')
             movieNames[int(fields[0])] = fields[1]
     return movieNames
+
+def makePairs( userRatings ):
+    ratings = userRatings[1]
+    (movie1, rating1) = ratings[0]
+    (movie2, rating2) = ratings[1]
+    return ((movie1, movie2), (rating1, rating2))
