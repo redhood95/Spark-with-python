@@ -36,3 +36,14 @@ def bfsMap(node):
     color = data[2]
 
     results = []
+
+    if (color == 'GRAY'):
+        for connection in connections:
+            newCharacterID = connection
+            newDistance = distance + 1
+            newColor = 'GRAY'
+            if (targetCharacterID == connection):
+                hitCounter.add(1)
+
+            newEntry = (newCharacterID, ([], newDistance, newColor))
+            results.append(newEntry)
