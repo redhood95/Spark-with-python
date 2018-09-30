@@ -22,3 +22,31 @@ def filterDuplicates( userRatings ):
     (movie1, rating1) = ratings[0]
     (movie2, rating2) = ratings[1]
     return movie1 < movie2
+
+
+def computeCosineSimilarity(ratingPairs):
+    numPairs = 0
+    sum_xx = sum_yy = sum_xy = 0
+    for ratingX, ratingY in ratingPairs:
+        sum_xx += ratingX * ratingX
+        sum_yy += ratingY * ratingY
+        sum_xy += ratingX * ratingY
+        numPairs += 1
+
+    numerator = sum_xy
+    denominator = sqrt(sum_xx) * sqrt(sum_yy)
+
+    score = 0
+    if (denominator):
+        score = (numerator / (float(denominator)))
+
+    return (score, numPairs)
+
+
+conf = SparkConf().setMaster("local[*]").setAppName("MovieSimilarities")
+sc = SparkContext(conf = conf)
+
+print("\nLoading movie names...")
+nameDict = loadMovieNames()
+
+data = sc.textFile("data/ml-100k/u.data")
